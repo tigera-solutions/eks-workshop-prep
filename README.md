@@ -16,7 +16,7 @@ The following are the basic requirements to **start** the workshop.
 1. Login to AWS Portal at https://portal.aws.amazon.com.
 2. Open the AWS CloudShell and choose Bash Shell (do not choose Powershell)
 
-   ![img-cloud-shell](https://user-images.githubusercontent.com/104035488/214944180-0b72595f-b58d-445d-9bde-2530bd491ace.png)
+   ![cloudshell](https://github.com/tigera-solutions/eks-workshop-prep/assets/104035488/a1f0b555-018d-488f-8d8c-975b5c391ede)
 
 3. The first time Cloud Shell is started will require you to create a storage account.
 
