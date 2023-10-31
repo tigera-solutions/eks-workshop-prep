@@ -50,7 +50,7 @@ The following are the basic requirements to **start** the workshop.
    k9s version
    ```
 
-## Deploy an Amazon EKS Cluster
+## Create an Amazon EKS Cluster
 
 1. Define the environment variables to be used by the resources definition.
 
