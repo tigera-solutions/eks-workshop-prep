@@ -1,6 +1,6 @@
 # Calico Cloud on EKS - Workshop Environment Preparation
 
-This repository will guide you through the preparation process of building an EKS cluster using the AWS CloudShell that will be used in Tigera's Calico Cloud workshop. The goal is to reduce the time used for setting up infrastructure during the workshop, optimizing the Calico Cloud learning and ensuring everyone is on the same page.
+This repository will guide you through the preparation process of building an EKS cluster using the AWS CloudShell that will be used in Tigera's Calico Cloud workshop. The goal is to reduce the time used for setting up infrastructure during the workshop, optimizing the Calico Cloud learning and ensuring everyone has the same experience.
 
 ## Getting Started with AWS CloudShell
 
