@@ -141,14 +141,16 @@ The following are the basic requirements to **start** the workshop.
      --nodes-min 0
    ```
 
-3. Verify that there are no worker nodes in your EKS cluster.
+3. It will take a minute or two until all nodes are deleted. You can monitor the process using the following command: 
 
    ```bash
-   kubectl get nodes
+   watch kubectl get nodes
    ```
 
-   The result should be:
+   When there are no more worker nodes in your EKS cluster, you should see:
    <pre>
+   Every 2.0s: kubectl get nodes
+   
    No resources found
    </pre>
 
