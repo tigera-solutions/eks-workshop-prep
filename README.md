@@ -61,6 +61,7 @@ The following are the basic requirements to **start** the workshop.
    > ```
 
    ```bash
+   # Feel free to use the cluster name and the region that better suits you.
    export CLUSTERNAME=tigera-workshop
    export REGION=ca-central-1
    # Persist for later sessions in case of disconnection.
@@ -69,14 +70,14 @@ The following are the basic requirements to **start** the workshop.
    echo export REGION=$REGION >> ~/workshopvars.env
    ```
  
-2. Create the AKS cluster without a network plugin.
+2. Create the EKS cluster.
    
    ```bash
    eksctl create cluster \
-   --name $CLUSTERNAME \
-   --version 1.27 \
-   --region $REGION \
-   --node-type m5.xlarge
+     --name $CLUSTERNAME \
+     --version 1.27 \
+     --region $REGION \
+     --node-type m5.xlarge
    ```
 
 3. Verify your cluster status. The "status" should be "ACTIVE"
@@ -85,13 +86,13 @@ The following are the basic requirements to **start** the workshop.
    aws eks describe-cluster --name $CLUSTERNAME --region $REGION
    ```
 
-4. Verify you have API access to your new AKS cluster
+4. Verify you have API access to your new EKS cluster
 
    ```bash
    kubectl get nodes
    ```
 
-   The output will be something similar to the this:
+   The output will be something similar to:
 
    <pre>
    NAME                                              STATUS   ROLES    AGE   VERSION
@@ -105,7 +106,7 @@ The following are the basic requirements to **start** the workshop.
     kubectl cluster-info
    ```
 
-   The output will be something similar to the this:
+   The output will be something similar to:
    <pre>
    Kubernetes control plane is running at https://16AAA7FFCE2B8F8C4C449E9264BA3612.yl4.ca-central-1.eks.amazonaws.com
    CoreDNS is running at https://16AAA7FFCE2B8F8C4C449E9264BA3612.yl4.ca-central-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy  </br>
@@ -136,7 +137,7 @@ The following are the basic requirements to **start** the workshop.
      --nodes-min 0
    ```
 
-3. Verify that there are no nodes up in your nodegroup.
+3. Verify that there are no worker nodes in your EKS cluster.
 
    ```bash
    kubectl get nodes
