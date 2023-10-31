@@ -54,7 +54,7 @@ The following are the basic requirements to **start** the workshop.
 
 1. Define the environment variables to be used by the resources definition.
 
-   > **NOTE**: In the following section, we'll create some environment variables. If your terminal session restarts, you may need to reset these variables. You can do that using the following command:
+   > **NOTE**: In this section, we'll create some environment variables. If your terminal session restarts, you may need to reset these variables. You can do that using the following command:
    >
    > ```console
    > source ~/workshopvars.env
