@@ -14,37 +14,11 @@ The following are the basic requirements to **start** the workshop.
 # Instructions
 
 1. Login to AWS Portal at https://portal.aws.amazon.com.
-2. Open the AWS CloudShell and choose Bash Shell (do not choose Powershell)
+2. Open the AWS CloudShell.
 
    ![cloudshell](https://github.com/tigera-solutions/eks-workshop-prep/assets/104035488/a1f0b555-018d-488f-8d8c-975b5c391ede)
 
-3. The first time Cloud Shell is started will require you to create a storage account.
-
-   > Note: In the cloud shell, you are automatically logged into your Azure subscription.
-
-4. [Optional] If you have more than one Azure subscription, ensure you are using the one you want to deploy AKS to.
-
-   View subscriptions
-   ```bash
-   az account list
-   ```
-
-   Verify selected subscription
-   ```bash
-   az account show
-   ```
-
-   Set correct subscription (if needed)
-   ```bash
-   az account set --subscription <subscription_id>
-   ```
-   
-   Verify correct subscription is now set
-   ```bash
-   az account show
-   ```
-
-5. Configure the kubectl autocomplete.
+3. Configure the kubectl autocomplete.
 
    ```bash
    source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
@@ -60,7 +34,24 @@ The following are the basic requirements to **start** the workshop.
    echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
    ```
 
-## Deploy an Azure AKS Cluster
+4. Install the eksctl - [Installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+
+   ```bash
+   mkdir ~/.local/bin
+   curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+   sudo mv /tmp/eksctl ~/.local/bin
+   eksctl version
+   ```
+
+5. Install the K9S, if you like it.
+
+   ```bash
+   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
+   sudo mv /tmp/k9s ~/.local/bin
+   k9s version
+   ```
+
+## Deploy an Amazon EKS Cluster
 
 1. Define the environment variables to be used by the resources definition.
 
@@ -71,59 +62,31 @@ The following are the basic requirements to **start** the workshop.
    > ```
 
    ```bash
-   export RESOURCE_GROUP=tigera-workshop
-   export CLUSTERNAME=aks-workshop
-   export LOCATION=canadacentral
+   export CLUSTERNAME=tigera-workshop
+   export REGION=ca-central-1
    # Persist for later sessions in case of disconnection.
-   echo export RESOURCE_GROUP=$RESOURCE_GROUP >> ~/workshopvars.env
+   echo "# Start Lab Params" > ~/workshopvars.env
    echo export CLUSTERNAME=$CLUSTERNAME >> ~/workshopvars.env
-   echo export LOCATION=$LOCATION >> ~/workshopvars.env
-   ```
-
-2. If not created, create the Resource Group in the desired Region.
-   
-   ```bash
-   az group create \
-     --name $RESOURCE_GROUP \
-     --location $LOCATION
-   ```
-   
-3. Create the AKS cluster without a network plugin.
-   
-   ```bash
-   az aks create \
-     --resource-group $RESOURCE_GROUP \
-     --name $CLUSTERNAME \
-     --kubernetes-version 1.26 \
-     --location $LOCATION \
-     --node-count 2 \
-     --node-vm-size Standard_B2ms \
-     --max-pods 100 \
-     --generate-ssh-keys \
-     --network-plugin azure
-   ```
-
-4. Verify your cluster status. The `ProvisioningState` should be `Succeeded`
-
-   ```bash
-   az aks list -o table
+   echo export REGION=$REGION >> ~/workshopvars.env
    ```
  
-   You may get an output like the following:
-
-   <pre>
-   Name                                   Location       ResourceGroup                         KubernetesVersion    CurrentKubernetesVersion    ProvisioningState    Fqdn
-   -------------------------------------  -------------  ------------------------------------  -------------------  --------------------------  -------------------  -----------------------------------------------------------------------
-   aks-workshop                           canadacentral  tigera-workshop                       1.26                 1.26.3                      Succeeded            aks-worksh-tigera-workshop-03cfb8-1juijlrg.hcp.canadacentral.azmk8s.io
-   </pre>
-
-5. Get the credentials to connect to the cluster.
+2. Create the AKS cluster without a network plugin.
    
    ```bash
-   az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTERNAME
+   eksctl create cluster \
+   --name $CLUSTERNAME \
+   --version 1.27 \
+   --region $REGION \
+   --node-type m5.xlarge
    ```
 
-6. Verify you have API access to your new AKS cluster
+3. Verify your cluster status. The "status" should be "ACTIVE"
+
+   ```bash
+   aws eks describe-cluster --name $CLUSTERNAME --region $REGION
+   ```
+
+4. Verify you have API access to your new AKS cluster
 
    ```bash
    kubectl get nodes
@@ -132,9 +95,9 @@ The following are the basic requirements to **start** the workshop.
    The output will be something similar to the this:
 
    <pre>
-   NAME                                STATUS   ROLES   AGE   VERSION
-   aks-nodepool1-25616976-vmss000002   Ready    agent   55m   v1.26.3
-   aks-nodepool1-25616976-vmss000003   Ready    agent   55m   v1.26.3
+   NAME                                              STATUS   ROLES    AGE   VERSION
+   ip-192-168-4-255.ca-central-1.compute.internal    Ready    <none>   17m   v1.27.5-eks-43840fb
+   ip-192-168-54-212.ca-central-1.compute.internal   Ready    <none>   17m   v1.27.5-eks-43840fb
    </pre>
 
    To see more details about your cluster:
@@ -145,41 +108,79 @@ The following are the basic requirements to **start** the workshop.
 
    The output will be something similar to the this:
    <pre>
-   Kubernetes control plane is running at https://aks-zero-t-rg-zero-trust-wo-03cfb8-b3feb0f8.hcp.canadacentral.azmk8s.io:443
-   CoreDNS is running at https://aks-zero-t-rg-zero-trust-wo-03cfb8-b3feb0f8.hcp.canadacentral.azmk8s.io:443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   Metrics-server is running at https://aks-zero-t-rg-zero-trust-wo-03cfb8-b3feb0f8.hcp.canadacentral.azmk8s.io:443/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
+   Kubernetes control plane is running at https://16AAA7FFCE2B8F8C4C449E9264BA3612.yl4.ca-central-1.eks.amazonaws.com
+   CoreDNS is running at https://16AAA7FFCE2B8F8C4C449E9264BA3612.yl4.ca-central-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy  </br>
 
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    </pre>
 
-   You should now have a Kubernetes cluster running with 2 nodes. You do not see the master servers for the cluster because these are managed by Microsoft. The Control Plane services which manage the Kubernetes cluster such as scheduling, API access, configuration data store and object controllers are all provided as services to the nodes.
+   You should now have a Kubernetes cluster running with 2 nodes. You do not see the master servers for the cluster because these are managed by AWS. The Control Plane services which manage the Kubernetes cluster such as scheduling, API access, configuration data store and object controllers are all provided as services to the nodes.
 
-7. Verify the settings required for Calico Cloud.
-   
-   ```bash
-   az aks show --resource-group $RESOURCE_GROUP --name $CLUSTERNAME --query 'networkProfile'
-   ```
 
-   You should see "networkPlugin": "azure" and "networkPolicy": null (networkPolicy will just not show if it is null).
+## Scale down the nodegroup to 0 nodes until the workshop starts.
 
-8. Verify the transparent mode by running the following command in one node
+1. Save the nodegroup name in an environment variable:
 
    ```bash
-   VMSSGROUP=$(az vmss list --output table | grep -i $RESOURCE_GROUP | awk -F ' ' '{print $2}')
-   VMSSNAME=$(az vmss list --output table | grep -i $RESOURCE_GROUP | awk -F ' ' '{print $1}')
-   az vmss run-command invoke -g $VMSSGROUP -n $VMSSNAME --scripts "cat /etc/cni/net.d/*" --command-id RunShellScript --instance-id 0 --query 'value[0].message' --output table
+   export NGNAME=$(eksctl get nodegroups --cluster $CLUSTERNAME --region $REGION | grep $CLUSTERNAME | awk -F ' ' '{print $2}') && \
+   echo export NGNAME=$NGNAME >> ~/workshopvars.env
    ```
-   
-   > output should contain "mode": "transparent"
 
-9. Stop the Cluster until the workshop starts.
+2. Scale the nodegroup down to 0 nodes, to reduce the cost.
 
    ```bash
-   az aks stop --resource-group $RESOURCE_GROUP --name $CLUSTERNAME
+   eksctl scale nodegroup $NGNAME \
+     --cluster $CLUSTERNAME \
+     --region $REGION \
+     --nodes 0 \
+     --nodes-max 1 \
+     --nodes-min 0
    ```
 
-10. To start your cluster when the workshop time has come use:
+3. Verify that there are no nodes up in your nodegroup.
 
-    ```bash
-    az aks start --resource-group $RESOURCE_GROUP --name $CLUSTERNAME
-    ```
+   ```bash
+   kubectl get nodes
+   ```
+
+   The result should be:
+   <pre>
+   No resources found
+   </pre>
+
+
+ ## Scale up the nodegroup to 2 nodes before the workshop starts.
+
+1. Connect back to your AWS CloudShell and load the environment variables:
+
+   ```bash
+   source ~/workshopvars.env
+   ```
+
+2. Scale up the nodegroup back to 2 nodes:
+
+   ```bash
+   eksctl scale nodegroup $NGNAME \
+     --cluster $CLUSTERNAME \
+     --region $REGION \
+     --nodes 2 \
+     --nodes-max 2 \
+     --nodes-min 2
+   ```
+
+3. It will take a few minutes until the nodes are back in `Ready` status. You can monitor it with the following command:
+
+   ```bash
+   watch kubectl get nodes
+   ```
+
+   Wait until the output becomes:
+   <pre>
+   Every 2.0s: kubectl get nodes  
+
+   NAME                                              STATUS   ROLES    AGE    VERSION
+   ip-192-168-13-66.ca-central-1.compute.internal    Ready    <none>   2m2s   v1.27.5-eks-43840fb
+   ip-192-168-69-111.ca-central-1.compute.internal   Ready    <none>   2m2s   v1.27.5-eks-43840fb
+   </pre>
+
+### You are now ready to start the workshop!
