@@ -7,9 +7,8 @@ This repository will guide you through the preparation process of building an EK
 The following are the basic requirements to **start** the workshop.
 
 * AWS Account [AWS Console](https://portal.aws.amazon.com)
-* Git [Git SCM](https://git-scm.com/downloads)
 * AWS CloudShell [https://portal.aws.amazon.com/cloudshell](https://portal.aws.amazon.com/cloudshell)
-* Amazon EKS Cluster 
+* Amazon EKS Cluster - to be created here!
 
 # Instructions
 
