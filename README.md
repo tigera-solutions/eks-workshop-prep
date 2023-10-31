@@ -80,10 +80,14 @@ The following are the basic requirements to **start** the workshop.
      --node-type m5.xlarge
    ```
 
-3. Verify your cluster status. The "status" should be "ACTIVE"
+3. Verify your cluster status. The `status` should be `ACTIVE`.
 
    ```bash
-   aws eks describe-cluster --name $CLUSTERNAME --region $REGION
+   aws eks describe-cluster \
+     --name $CLUSTERNAME \
+     --region $REGION \
+     --no-cli-pager \
+     --output yaml
    ```
 
 4. Verify you have API access to your new EKS cluster
