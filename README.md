@@ -17,7 +17,13 @@ The following are the basic requirements to **start** the workshop.
 
    ![cloudshell](https://github.com/tigera-solutions/eks-workshop-prep/assets/104035488/a1f0b555-018d-488f-8d8c-975b5c391ede)
 
-3. Configure the kubectl autocomplete.
+3. Install the bash-completion on the AWS CloudShell.
+
+   ```bash
+   sudo yum -y install bash-completion
+   ```
+
+4. Configure the kubectl autocomplete.
 
    ```bash
    source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
@@ -33,7 +39,7 @@ The following are the basic requirements to **start** the workshop.
    echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
    ```
 
-4. Install the eksctl - [Installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+5. Install the eksctl - [Installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 
    ```bash
    mkdir ~/.local/bin
@@ -42,7 +48,7 @@ The following are the basic requirements to **start** the workshop.
    eksctl version
    ```
 
-5. Install the K9S, if you like it.
+6. Install the K9S, if you like it.
 
    ```bash
    curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
