@@ -38,6 +38,7 @@ The following are the basic requirements to **start** the workshop.
    complete -o default -F __start_kubectl k
    echo "alias k=kubectl"  >> ~/.bashrc
    echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
+   /bin/bash
    ```
 
 5. Install the eksctl - [Installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
@@ -46,7 +47,7 @@ The following are the basic requirements to **start** the workshop.
    mkdir ~/.local/bin
    curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
    sudo mv /tmp/eksctl ~/.local/bin
-   eksctl version
+   eksctl version 
    ```
 
 6. Install the K9S, if you like it.
