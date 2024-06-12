@@ -53,7 +53,7 @@ The following are the basic requirements to **start** the workshop.
 6. Install the K9S, if you like it.
 
    ```bash
-   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
+   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
    sudo mv /tmp/k9s ~/.local/bin
    k9s version
    ```
@@ -83,7 +83,7 @@ The following are the basic requirements to **start** the workshop.
    ```bash
    eksctl create cluster \
      --name $CLUSTERNAME \
-     --version 1.27 \
+     --version 1.29 \
      --region $REGION \
      --node-type m5.xlarge
    ```
