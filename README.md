@@ -108,8 +108,8 @@ The following are the basic requirements to **start** the workshop.
 
    <pre>
    NAME                                              STATUS   ROLES    AGE   VERSION
-   ip-192-168-4-255.ca-central-1.compute.internal    Ready    <none>   17m   v1.27.5-eks-43840fb
-   ip-192-168-54-212.ca-central-1.compute.internal   Ready    <none>   17m   v1.27.5-eks-43840fb
+   ip-192-168-4-255.ca-central-1.compute.internal    Ready    <none>   17m   v1.29.3-eks-43840fb
+   ip-192-168-54-212.ca-central-1.compute.internal   Ready    <none>   17m   v1.29.3-eks-43840fb
    </pre>
 
    To see more details about your cluster:
@@ -193,8 +193,8 @@ The following are the basic requirements to **start** the workshop.
    Every 2.0s: kubectl get nodes  
 
    NAME                                              STATUS   ROLES    AGE    VERSION
-   ip-192-168-13-66.ca-central-1.compute.internal    Ready    <none>   2m2s   v1.27.5-eks-43840fb
-   ip-192-168-69-111.ca-central-1.compute.internal   Ready    <none>   2m2s   v1.27.5-eks-43840fb
+   ip-192-168-13-66.ca-central-1.compute.internal    Ready    <none>   2m2s   v1.29.3-eks-43840fb
+   ip-192-168-69-111.ca-central-1.compute.internal   Ready    <none>   2m2s   v1.29.30-eks-43840fb
    </pre>
 
 ### You are now ready to start the workshop!
