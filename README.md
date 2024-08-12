@@ -2,7 +2,6 @@
 
 This repository will guide you through the preparation process of building an EKS cluster using the AWS CloudShell that will be used in Tigera's Calico Cloud workshop. The goal is to reduce the time used for setting up infrastructure during the workshop, optimizing the Calico Cloud learning and ensuring everyone has the same experience.
 
-
 ## Getting Started with AWS CloudShell
 
 The following are the basic requirements to **start** the workshop.
@@ -46,16 +45,14 @@ The following are the basic requirements to **start** the workshop.
    ```bash
    mkdir ~/.local/bin
    curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-   sudo mv /tmp/eksctl ~/.local/bin
-   eksctl version 
+   sudo mv /tmp/eksctl ~/.local/bin && eksctl version 
    ```
 
 6. Install the K9S, if you like it.
 
    ```bash
-   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.32.4/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
-   sudo mv /tmp/k9s ~/.local/bin
-   k9s version
+   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
+   sudo mv /tmp/k9s ~/.local/bin && k9s version
    ```
 
 ## Create an Amazon EKS Cluster
@@ -71,7 +68,7 @@ The following are the basic requirements to **start** the workshop.
    ```bash
    # Feel free to use the cluster name and the region that better suits you.
    export CLUSTERNAME=tigera-workshop
-   export REGION=ca-central-1
+   export REGION=us-west-2
    # Persist for later sessions in case of disconnection.
    echo "# Start Lab Params" > ~/workshopvars.env
    echo export CLUSTERNAME=$CLUSTERNAME >> ~/workshopvars.env
@@ -108,8 +105,8 @@ The following are the basic requirements to **start** the workshop.
 
    <pre>
    NAME                                              STATUS   ROLES    AGE   VERSION
-   ip-192-168-4-255.ca-central-1.compute.internal    Ready    <none>   17m   v1.29.3-eks-43840fb
-   ip-192-168-54-212.ca-central-1.compute.internal   Ready    <none>   17m   v1.29.3-eks-43840fb
+   ip-192-168-30-52.us-west-2.compute.internal    Ready    <none>   7m6s   v1.29.6-eks-1552ad0
+   ip-192-168-38-242.us-west-2.compute.internal   Ready    <none>   7m7s   v1.29.6-eks-1552ad0
    </pre>
 
    To see more details about your cluster:
@@ -120,8 +117,8 @@ The following are the basic requirements to **start** the workshop.
 
    The output will be something similar to:
    <pre>
-   Kubernetes control plane is running at https://16AAA7FFCE2B8F8C4C449E9264BA3612.yl4.ca-central-1.eks.amazonaws.com
-   CoreDNS is running at https://16AAA7FFCE2B8F8C4C449E9264BA3612.yl4.ca-central-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy  </br>
+   Kubernetes control plane is running at https://E306AAC3433C85AC39A376C39354E640.gr7.us-west-2.eks.amazonaws.com
+   CoreDNS is running at https://E306AAC3433C85AC39A376C39354E640.gr7.us-west-2.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy </br>
 
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    </pre>
@@ -193,8 +190,8 @@ The following are the basic requirements to **start** the workshop.
    Every 2.0s: kubectl get nodes  
 
    NAME                                              STATUS   ROLES    AGE    VERSION
-   ip-192-168-13-66.ca-central-1.compute.internal    Ready    <none>   2m2s   v1.29.3-eks-43840fb
-   ip-192-168-69-111.ca-central-1.compute.internal   Ready    <none>   2m2s   v1.29.30-eks-43840fb
+   ip-192-168-30-52.us-west-2.compute.internal    Ready    <none>   8m59s   v1.29.6-eks-1552ad0
+   ip-192-168-38-242.us-west-2.compute.internal   Ready    <none>   9m      v1.29.6-eks-1552ad0
    </pre>
 
 ### You are now ready to start the workshop!
