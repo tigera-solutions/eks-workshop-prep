@@ -104,9 +104,9 @@ The following are the basic requirements to **start** the workshop.
    The output will be something similar to:
 
    <pre>
-   NAME                                              STATUS   ROLES    AGE   VERSION
-   ip-192-168-30-52.us-west-2.compute.internal    Ready    <none>   7m6s   v1.29.6-eks-1552ad0
-   ip-192-168-38-242.us-west-2.compute.internal   Ready    <none>   7m7s   v1.29.6-eks-1552ad0
+   NAME                                           STATUS   ROLES    AGE    VERSION
+   ip-192-168-2-168.us-west-2.compute.internal    Ready    <none>   129m   v1.30.8-eks-aeac579
+   ip-192-168-57-247.us-west-2.compute.internal   Ready    <none>   129m   v1.30.8-eks-aeac579
    </pre>
 
    To see more details about your cluster:
