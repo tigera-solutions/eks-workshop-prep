@@ -51,7 +51,7 @@ The following are the basic requirements to **start** the workshop.
 6. Install the K9S, if you like it.
 
    ```bash
-   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
+   curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
    sudo mv /tmp/k9s ~/.local/bin && k9s version
    ```
 
@@ -80,7 +80,7 @@ The following are the basic requirements to **start** the workshop.
    ```bash
    eksctl create cluster \
      --name $CLUSTERNAME \
-     --version 1.29 \
+     --version 1.30 \
      --region $REGION \
      --node-type m5.xlarge
    ```
@@ -190,8 +190,8 @@ The following are the basic requirements to **start** the workshop.
    Every 2.0s: kubectl get nodes  
 
    NAME                                              STATUS   ROLES    AGE    VERSION
-   ip-192-168-30-52.us-west-2.compute.internal    Ready    <none>   8m59s   v1.29.6-eks-1552ad0
-   ip-192-168-38-242.us-west-2.compute.internal   Ready    <none>   9m      v1.29.6-eks-1552ad0
+   ip-192-168-2-168.us-west-2.compute.internal    Ready    <none>   129m   v1.30.8-eks-aeac579
+   ip-192-168-57-247.us-west-2.compute.internal   Ready    <none>   129m   v1.30.8-eks-aeac579
    </pre>
 
 ### You are now ready to start the workshop!
